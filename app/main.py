@@ -1,13 +1,13 @@
 from fastapi import FastAPI
 
-app = FastAPI()
+from app.core.config import settings
+
+from manual_db_migration.migrate import create_tables
+create_tables()
+
+app = FastAPI(title=settings.API_V1_STR)
 
 
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
-
-
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
